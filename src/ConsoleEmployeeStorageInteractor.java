@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,14 +8,15 @@ public class ConsoleEmployeeStorageInteractor {
     private EmployeeStorage storage;
 
     public ConsoleEmployeeStorageInteractor(){
-        storage = initializeStorage();
+        try {
+            storage = initializeStorage();
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    /*public ConsoleEmployeeStorageInteractor(EmployeeStorage storage){
-        this.storage = storage;
-    }*/
-
-    private EmployeeStorage initializeStorage(){
+    private EmployeeStorage initializeStorage() throws IOException {
         String importKey = "i",
                 createKey = "n";
 
@@ -25,7 +27,7 @@ public class ConsoleEmployeeStorageInteractor {
             if (createOrReadMessage.equalsIgnoreCase(importKey)) {
                 try {
                     this.storage = new EmployeeStorage();
-                    storage.readStorageFromFile(new Reader().read("Введите имя файла"), false);//создать новый employeestorage и вернуть его
+                    storage.readStorageFromFile(new Reader().read("Введите имя файла"), false);
                     interact();
                 } catch (Exception e) {
                     Writer.print("Ошибка, попробуйте заново! Ошибка: " + e.fillInStackTrace());
@@ -50,7 +52,7 @@ public class ConsoleEmployeeStorageInteractor {
         }
     }
 
-    public void interact(){
+    public void interact() throws IOException {
         Reader reader = new Reader();
         final String welcomeMessage = "Введите команду(для справки введите man)",
                 helpKey = "man",
@@ -120,6 +122,8 @@ public class ConsoleEmployeeStorageInteractor {
                         continue;
                     }
                     break;
+                case "A":
+                    testWithLogger();
 
                 case searchKeyWord:
                     searchEmployee();
@@ -165,9 +169,12 @@ public class ConsoleEmployeeStorageInteractor {
             Writer.print("№" + pair.getKey() + pair.getValue().getTableData());
         }
     }
-
+    public void testWithLogger() throws IOException {
+        LocalDateTime begin = LocalDateTime.now();
+        LocalDateTime end = LocalDateTime.of(2027,1,1,1,1,1);
+        WorkLogger logger = new WorkLogger(begin, end,"D:\\Logger.txt", storage);
+        logger.writeLogToFile(true);
+    }
 }
-//solid прочитать, переделать таблицу employee_storage.csv
-//N1 вывести результаты поиска в форме таблицы как в showdatatable с номером
-//N2 реализовать поиск не только в данных employee но и в его номере(id),
-//git, javarush
+//employee_storage.csv
+//написать метод который считает сколько проработал работник с даты 1 по дату 2(входные параметры + id)

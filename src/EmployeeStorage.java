@@ -1,10 +1,7 @@
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EmployeeStorage {
     public HashMap<Integer,Person> employees;
@@ -40,6 +37,15 @@ public class EmployeeStorage {
         return employees.size();
     }
 
+    public Integer getEmployeeId(int employeeNumber){
+        for(var k : employees.entrySet()){
+            if(k.getKey() == employeeNumber){
+                return k.getKey();
+            }
+        }
+        return null;
+    }
+
     public void removeEmployee(int employeeNumber) throws IndexOutOfBoundsException {
         employees.remove(employeeNumber - 1);
     }
@@ -59,10 +65,10 @@ public class EmployeeStorage {
         Path path = Path.of(fileName);
         List<String> list = Files.readAllLines(path);
 
-            if(overWriteFlag || employees == null)
-                employees = new HashMap<>();
-            for (int i = 0; i < list.size(); i++) {
-                employees.put(employeeCount++, new Person(list.get(i)));
-            }
+        if(overWriteFlag || employees == null)
+            employees = new HashMap<>();
+        for (int i = 0; i < list.size(); i++) {
+            employees.put(employeeCount++, new Person(list.get(i)));
+        }
     }
 }
