@@ -122,9 +122,7 @@ public class ConsoleEmployeeStorageInteractor {
                         continue;
                     }
                     break;
-                case "A":
-                    testWithLogger();
-
+                    
                 case searchKeyWord:
                     searchEmployee();
                     break;
@@ -169,12 +167,4 @@ public class ConsoleEmployeeStorageInteractor {
             Writer.print("№" + pair.getKey() + pair.getValue().getTableData());
         }
     }
-    public void testWithLogger() throws IOException {
-        LocalDateTime begin = LocalDateTime.now();
-        LocalDateTime end = LocalDateTime.of(2027,1,1,1,1,1);
-        WorkLogger logger = new WorkLogger(begin, end,"D:\\Logger.txt", storage);
-        logger.writeLogToFile(true);
-    }
 }
-//employee_storage.csv
-//написать метод который считает сколько проработал работник с даты 1 по дату 2(входные параметры + id)
