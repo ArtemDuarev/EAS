@@ -37,13 +37,8 @@ public class EmployeeStorage {
         return employees.size();
     }
 
-    public Integer getEmployeeId(int employeeNumber){
-        for(var k : employees.entrySet()){
-            if(k.getKey() == employeeNumber){
-                return k.getKey();
-            }
-        }
-        return null;
+    public boolean isEmployeeInStorage(int employeeNumber){
+        return employees.containsKey(employeeNumber);
     }
 
     public void removeEmployee(int employeeNumber) throws IndexOutOfBoundsException {

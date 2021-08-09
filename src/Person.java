@@ -118,14 +118,3 @@ public class Person {
     }
 
 }
-
-    /*public Person(ArrayList<String> fieldsList){
-        id++;
-        name = fieldsList.get(0);
-        surname = fieldsList.get(1);
-        age = Integer.parseInt(fieldsList.get(2));
-        phoneNumber = fieldsList.get(3);
-        address = fieldsList.get(4);
-    }*/
-
-// переделать if на switch employee_storage.csv
